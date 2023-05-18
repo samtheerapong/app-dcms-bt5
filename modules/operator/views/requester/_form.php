@@ -23,11 +23,11 @@ use app\modules\operator\models\User;
     <p><?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
 
     <div class="actions-form">
-        <div class="box box-success box-solid">
-            <div class="box-header">
-                <div class="box-title"><?= $this->title ?></div>
+        <div class="card border">
+            <div class="card-header bg-info">
+                <h5 class="card-title"><?= $this->title ?></h5>
             </div>
-            <div class="box-body">
+            <div class="card-body">
 
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
@@ -110,7 +110,7 @@ use app\modules\operator\models\User;
 
                 <?= $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
 
-                <div class="box-footer">
+                <div class="card-footer">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

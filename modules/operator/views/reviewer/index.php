@@ -2,8 +2,9 @@
 
 use app\modules\operator\models\Points;
 use yii\helpers\Html;
-// use yii\grid\GridView;
-use kartik\grid\GridView;
+// use kartik\grid\GridView;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use app\modules\operator\models\User;
@@ -22,58 +23,57 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reviewer-index">
 
-    <p style="text-align: left;">
-        <?= Html::a('<i class="fa fa-arrow-circle-left"></i> ' . Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-warning']) ?>
-        <?= Html::a('<i class="fa fa-refresh"></i> ' . Yii::t('app', 'Refresh'), [''], ['class' => 'btn btn-info']) ?>
-    </p>
 
+    <div style="display: flex; justify-content: space-between;">
+        <p style="text-align: left;">
+            <?= Html::a('<i class="fas fa-arrow-circle-left"></i> ' . Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-secondary']) ?>
+
+        </p>
+        <p style="text-align: right;">
+            <?= Html::a('<i class="fas fa-sync-alt"></i> ' . Yii::t('app', 'Refresh'), [''], ['class' => 'btn btn-warning']) ?>
+        </p>
+    </div>
 
     <div class="actions-form">
-        <div class="box box-primary box-solid">
-            <div class="box-header">
-                <div class="box-title"><?= $this->title ?></div>
+        <div class="card border">
+            <div class="card-header bg-info">
+                <h5 class="card-title"><?= $this->title ?></h5>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    // 'rowOptions' => function ($model, $key, $index, $grid) {
+                    //     return ['style' => 'background-color:' . $model->requester->status->color . ';']; // Set the background color of the row dynamically
+                    // },
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
                         [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:8%;'],
-                            'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete} </div>',
+                            'class' => ActionColumn::class,
+                            'header' => Yii::t('app', 'Actions'),
+                            'template' => '<div class="btn-group btn-group-sm" role="group">{view} {update} {delete}</div>',
                             'buttons' => [
-                                'update' => function ($url, $model, $key) {
-                                    if ($model->requester->status->id === 4) {
-                                        return '';
-                                    } else {
-                                        return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                            'title' => Yii::t('app', 'Approver'),
-                                            'class' => 'btn btn-warning',
-                                        ]);
-                                    }
-                                },
-                                'delete' => function ($url, $model, $key) {
-                                    if ($model->requester->status->id === 4) {
-                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                            'title' => Yii::t('app', 'Delete'),
-                                            'class' => 'btn btn-danger',
-                                            'data' => [
-                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                                'method' => 'post',
-                                            ],
-                                        ]);
-                                    } else {
-                                        return '';
-                                    }
-                                },
                                 'view' => function ($url, $model, $key) {
-                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    return Html::a('<i class="fas fa-eye"></i>', $url, [
                                         'title' => Yii::t('app', 'View'),
                                         'class' => 'btn btn-info',
+                                    ]);
+                                },
+                                'update' => function ($url, $model, $key) {
+                                    return Html::a('<i class="fas fa-edit"></i>', $url, [
+                                        'title' => Yii::t('app', 'Approver'),
+                                        'class' => 'btn btn-warning',
+                                    ]);
+                                },
+                                'delete' => function ($url, $model, $key) {
+                                    return Html::a('<i class="fas fa-trash"></i>', $url, [
+                                        'title' => Yii::t('app', 'Delete'),
+                                        'class' => 'btn btn-danger',
+                                        'data' => [
+                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                            'method' => 'post',
+                                        ],
                                     ]);
                                 },
                             ],
@@ -88,13 +88,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',
                             'value' => function ($model) {
                                 $blinkClass = $model->requester->status->id == 1 ? 'blink' : '';
-                                return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
+                                return '<h5><span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';">' . $model->requester->status->status_details . '</span></h5>';
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'status_id',
                                 'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                'theme' => Select2::THEME_DEFAULT,
+                                'theme' => Select2::THEME_BOOTSTRAP, // Set the theme to 'bootstrap'
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
@@ -106,14 +106,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'requester.document_number',
                         [
                             'attribute' => 'requester.document_number',
-                            'options' => ['style' => 'width:8%;'],
+                            'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'document_number',
                                 'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
-                                'theme' => Select2::THEME_DEFAULT,
+                                'theme' => Select2::THEME_BOOTSTRAP, // Set the theme to 'bootstrap'
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                     return $value;
                                 }, ArrayHelper::map(Requester::find()->all(), 'id', 'document_title')),
-                                'theme' => Select2::THEME_DEFAULT,
+                                'theme' => Select2::THEME_BOOTSTRAP, // Set the theme to 'bootstrap'
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
@@ -176,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'model' => $searchModel,
                                 'attribute' => 'reviewer_name',
                                 'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
-                                'theme' => Select2::THEME_DEFAULT,
+                                'theme' => Select2::THEME_BOOTSTRAP, // Set the theme to 'bootstrap'
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
@@ -206,7 +206,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ]),
                         ],
-                  
+
                         // 'document_age',
                         // 'document_public_at',
                         [
@@ -236,11 +236,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             'options' => ['style' => 'width:8%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
-                                return $model->stamps && $model->stamps->stamp_name ? 
-                                '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>' : 
-                                '';
+                                return $model->stamps && $model->stamps->stamp_name ?
+                                    '<h5><span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span></h5>' :
+                                    '';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'stamps_id', ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'stamps_id',
+                                'data' => ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'),
+                                'theme' => Select2::THEME_BOOTSTRAP, // Set the theme to 'bootstrap'
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
                         //'document_ref',
                         //'document_tags',
@@ -265,7 +275,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                     return $value;
                                 }, ArrayHelper::map(Points::find()->all(), 'id', 'point_name')),
-                                'theme' => Select2::THEME_DEFAULT,
+                                'theme' => Select2::THEME_BOOTSTRAP, // Set the theme to 'bootstrap'
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [

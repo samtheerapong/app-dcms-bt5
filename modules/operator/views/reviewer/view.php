@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="actions-form">
         <div class="row">
             <div class="col-md-4">
-                <div class="box box-info box-solid">
-                    <div class="box-header">
-                        <div class="box-title"><?= Yii::t('app', 'Requester') ?></div>
+                <div class="card border">
+                    <div class="card-header bg-info">
+                        <h5 class="card-title"><?= $this->title ?></h5>
                     </div>
-                    <div class="box-body">
+                    <div class="card-body">
                         <?= DetailView::widget([
                             'model' => $model,
                             'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
@@ -132,11 +132,11 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-md-4">
-                <div class="box box-warning box-solid">
-                    <div class="box-header">
-                        <div class="box-title"><?= Yii::t('app', 'Reviewer') ?></div>
+                <div class="card border">
+                    <div class="card-header bg-info">
+                        <h5 class="card-title"><?= $this->title ?></h5>
                     </div>
-                    <div class="box-body">
+                    <div class="card-body">
                         <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
@@ -196,7 +196,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ],
 
-                                                         
+
 
                                 [
                                     'attribute' => 'document_revision',
@@ -205,7 +205,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->document_revision ? $model->document_revision : Yii::t('app', '');
                                     },
                                 ],
-                                
+
 
                                 [
                                     'attribute' => 'document_age',
@@ -243,7 +243,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->document_ref ? $model->document_ref : Yii::t('app', '');
                                     },
                                 ],
-                                
+
                                 [
                                     'attribute' => 'points_id',
                                     'format' => 'html',
@@ -282,11 +282,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="box box-success box-solid">
-                    <div class="box-header">
-                        <div class="box-title"><?= Yii::t('app', 'Approver') ?></div>
+                <div class="card border">
+                    <div class="card-header bg-info">
+                        <h5 class="card-title"><?= $this->title ?></h5>
                     </div>
-                    <div class="box-body">
+                    <div class="card-body">
                         <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [

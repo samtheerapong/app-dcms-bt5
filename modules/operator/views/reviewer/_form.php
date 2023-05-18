@@ -21,11 +21,11 @@ use app\modules\operator\models\Status;
 
 <div class="reviewer-form">
     <div class="actions-form">
-        <div class="box box-info box-solid">
-            <div class="box-header">
-                <div class="box-title"><?= Yii::t('app', 'Reviewer')  ?> </div>
+        <div class="card border">
+            <div class="card-header bg-info">
+                <h5 class="card-title"><?= $this->title ?></h5>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 <?php $form = ActiveForm::begin(); ?>
 
                 <div class="row">
@@ -91,7 +91,7 @@ use app\modules\operator\models\Status;
                             ]
                         ); ?>
                     </div>
-              
+
                     <div class="col-md-2">
                         <?= $form->field($model, 'stamps_id')->dropDownlist(ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['prompt' => Yii::t('app', 'Select...'), 'required' =>  true]) ?>
                     </div>
@@ -179,7 +179,7 @@ use app\modules\operator\models\Status;
                         </div>
                     </div>
                 </div>
-                <div class="box-footer">
+                <div class="card-footer">
                     <div class="row">
                         <div class="col-md-126">
                             <div class="form-group">

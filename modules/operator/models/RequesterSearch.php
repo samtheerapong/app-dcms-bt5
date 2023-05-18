@@ -11,7 +11,7 @@ use app\modules\operator\models\Requester;
  */
 class RequesterSearch extends Requester
 {
-    
+
     /**
      * {@inheritdoc}
      */
@@ -46,9 +46,16 @@ class RequesterSearch extends Requester
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
-        ]);
+                'query' => $query,
+                'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
+            ]);
+        //     'query' => $query,
+        //     'sort' => [
+        //         'defaultOrder' => [
+        //             'status_id' => SORT_ASC, // Sort by status_id in descending order
+        //         ],
+        //     ],
+        // ]);
 
         $this->load($params);
 

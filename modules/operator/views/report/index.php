@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-<div class="panel panel-info">
-   <div class="panel-heading">
-      <h3 class="panel-title">สรุปแยกเป็นระดับเอกสาร</h3>
+<div class="card border">
+   <div class="card-header bg-info">
+      <h5 class="card-title"><?= $this->title ?></h5>
    </div>
-   <div class="panel-body">
+   <div class="card-body">
       <?= Highcharts::widget([
          'scripts' => [
             'modules/exporting',
@@ -47,11 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
    </div>
 </div>
 
-<div class="panel panel-info">
-   <div class="panel-heading">
-      <h3 class="panel-title">ตารางสรุปแยกระดับเอกสาร</h3>
+<div class="card border">
+   <div class="card-header bg-info">
+      <h5 class="card-title"><?= $this->title ?></h5>
    </div>
-   <div class="panel-body">
+   <div class="card-body">
       <?= GridView::widget([
          'dataProvider' => $dataProvider,
          //'filterModel' => $searchModel,

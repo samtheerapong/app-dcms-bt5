@@ -5,6 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'th',
+    'timezone' => 'Asia/Bangkok',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -52,7 +54,7 @@ $config = [
             'user/security/auth',
             'user/registration/register',
             'site/*',
-            // '*', //Allow All For Dev
+            '*', //Allow All For Dev
         ]
     ],
     'components' => [

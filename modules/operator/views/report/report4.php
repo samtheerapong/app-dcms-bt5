@@ -11,11 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1>ตัวอย่าง</h1>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">ตัวอย่าง</h3>
-    </div>
-    <div class="panel-body">
+<div class="card border">
+            <div class="card-header bg-danger">
+                <h5 class="card-title"><?= $this->title ?></h5>
+            </div>
+            <div class="card-body">
         <?= Highcharts::widget([
             'scripts' => [
                 'modules/exporting',
@@ -100,11 +100,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">ตัวอย่าง 2</h3>
-    </div>
-    <div class="panel-body">
+<div class="card border">
+            <div class="card-header bg-danger">
+                <h5 class="card-title"><?= $this->title ?></h5>
+            </div>
+            <div class="card-body">
         <?= GanttChart::widget([
             'options' => [
                 'title' => ['text' => 'Simple Gantt Chart'],
