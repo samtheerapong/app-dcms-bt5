@@ -14,6 +14,8 @@ use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\User;
+use yii\bootstrap5\LinkPager;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\RequesterSearch */
@@ -47,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'pager' => ['class' => LinkPager::class],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 

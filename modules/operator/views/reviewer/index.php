@@ -1,16 +1,18 @@
 <?php
 
-use app\modules\operator\models\Points;
 use yii\helpers\Html;
-// use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\grid\ActionColumn;
-use yii\helpers\ArrayHelper;
-use kartik\select2\Select2;
+use yii\bootstrap5\LinkPager;
+//
+use app\modules\operator\models\Points;
 use app\modules\operator\models\User;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\Stamps;
 use app\modules\operator\models\Status;
+//
+use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
@@ -43,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'pager' => ['class' => LinkPager::class],
                     // 'rowOptions' => function ($model, $key, $index, $grid) {
                     //     return ['style' => 'background-color:' . $model->requester->status->color . ';']; // Set the background color of the row dynamically
                     // },
