@@ -34,9 +34,12 @@ The minimum requirement by this project template that your Web server supports P
 INSTALLATION
 ------------
 
-### Install via Composer
+### Install via git
+~~~
+git clone https://github.com/samtheerapong/app-dcms-bt5.git
+~~~
 
-
+### Update composer
 ~~~
 composer update
 ~~~
@@ -50,8 +53,7 @@ Set cookie validation key in `config/web.php` file to some random secret string:
 
 ```php
 'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
+      'cookieValidationKey' => '<secret random string goes here>',
 ],
 ```
 
@@ -65,22 +67,68 @@ Edit the file `config/db.php` with real data, for example:
 ```php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
+    'dsn' => 'mysql:host=localhost;dbname=database-name',
+    'username' => 'sam',
+    'password' => 'sam',
     'charset' => 'utf8',
 ];
 ```
 
+### Pager bootstrap5
 
 ```php
 <?php
 use yii\bootstrap5\LinkPager;
 ?>
 <?= ListView::widget([
-            'dataProvider' => $dataProvider,
-            'itemView' => '_post',
-            'pager' => ['class' => LinkPager::className()],
+        'dataProvider' => $dataProvider,
+        'itemView' => '_post',
+        'pager' => ['class' => LinkPager::class],
     ]);
 ?>
+
+<?= GridView::widget([
+     'dataProvider' => $dataProvider,
+     'filterModel' => $searchModel,
+     'pager' => ['class' => LinkPager::class],
+     // 'rowOptions' => function ($model, $key, $index, $grid) {
+     //     return ['style' => 'background-color:' . $model->requester->status->color . ';']; // Set the background color of the row dynamically
+     // },
+     'columns' => [
+         ['class' => 'yii\grid\SerialColumn'],
+
+         [
+             'class' => ActionColumn::class,
+             'header' => Yii::t('app', 'Actions'),
+             'template' => '<div class="btn-group btn-group-sm" role="group">{view} {update} {delete}</div>',
+             'buttons' => [
+                'view' => function ($url, $model, $key) {
+                    return Html::a('<i class="fas fa-eye"></i>', $url, [
+                        'title' => Yii::t('app', 'View'),
+                        'class' => 'btn btn-info',
+                    ]);
+                },
+                'update' => function ($url, $model, $key) {
+                    return Html::a('<i class="fas fa-edit"></i>', $url, [
+                        'title' => Yii::t('app', 'Approver'),
+                        'class' => 'btn btn-warning',
+                    ]);
+                },
+                'delete' => function ($url, $model, $key) {
+                return Html::a('<i class="fas fa-trash"></i>', $url, [
+                    'title' => Yii::t('app', 'Delete'),
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]);
+                },
+             ],
+         ],
+    ],
+ ]); 
+ ?>
+
+
 ```
